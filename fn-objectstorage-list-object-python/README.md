@@ -99,9 +99,9 @@ Create the application and function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
   - [func.py](./func.py) which is your actual Python function
 
-  Update the `func.yaml` to include the desired tenancy's Object Storage Namespace
-
   ![user input icon](../images/userinput.png)
+  
+  Update the `func.yaml` to include the desired tenancy's Object Storage Namespace
   ```
   config:
     OCI_NAMESPACE: <TO BE FILLED>
