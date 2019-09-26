@@ -100,7 +100,7 @@ Create the application and function
   - [func.py](./func.py) which is your actual Python function
 
   ![user input icon](../images/userinput.png)
-  
+
   Update the `func.yaml` to include the desired tenancy's Object Storage Namespace
   ```
   config:
@@ -122,7 +122,7 @@ Create the application and function
   e.g.
 
   ```
-  fn -v deploy --app list-objects
+  fn -v deploy --app object-crud
   ```
 
 Test
@@ -135,9 +135,7 @@ Test
   ```
   e.g.
   ```
-  echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>"}' | fn invoke python-object-storage get-object
-  echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>", "content": "<content>"}' | fn invoke python-object-storage put-object
-  echo -n '{"bucketName": "<bucket-name>"}' | fn invoke python-object-storage list-object
+  echo -n '{"bucketName": "<bucket-name>"}' | fn invoke object-crud list-object
   ```
 
 Upon success, you should see either a list of objects or a success message appear in your terminal.
