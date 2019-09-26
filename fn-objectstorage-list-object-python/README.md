@@ -1,15 +1,15 @@
-# Function to list objects in a bucket from Object Storage with the OCI Python SDK
+# Function that lists objects from a bucket in Object Storage with the OCI Python SDK
 
-  This function uses the OCI Python SDK to create a Resource Principals Signer to authenticate a function call to OCI's Object Storage.
+This function uses Resource Principals to securely authorize a function to make
+API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
+It returns a list of objects from a given bucket in Object Storage.
 
-  Uses the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html) to create a client that gets access to OCI Object Storage.
+The function calls the following OCI Python SDK classes:
+* [Resource Principals](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html?highlight=Resource%20Principals#resource-principals-signer) to authenticate
+* [ObjectStorageClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) to interact with Object Storage
 
-  In this example we'll show how you can access your OCI Object Storage information from a function using your tenancy's Object Storage Namespace, a bucket's name, a file's name, and JSON objects! To do this we'll use one API client exposed by the OCI SDK:
-
-  1. [ObjectStorageClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) which allows us to connect to OCI with the use of [Resource Principals](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html?highlight=Resource%20Principals#resource-principals-signer) which authenticates our call to Object storage services.
-
-  As you make your way through this tutorial, look out for this icon. ![user input icon](../images/userinput.png)
-  Whenever you see it, it's time for you to perform an action.
+As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
+Whenever you see it, it's time for you to perform an action.
 
 
 Pre-requisites:
