@@ -1,10 +1,10 @@
-# Resource Principle Function for Returning the Instances of the Calling Compartment.
+# Function that returns the list of instances in the Calling Compartment.
 
-  This function uses Resource Principals to securely receive information about the user's information from OCI and returns a list of all instances within the compartment that calls the function.
+This function uses Resource Principals to securely authorize an instance to make
+API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
+It returns a list of all instances within the compartment that calls the function.
 
-  Uses the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html) to create a client that receive user information when called in the OCI or a valid config file exists.
-
-  As you make your way through this tutorial, look out for this icon. ![user input icon](../images/userinput.png) Whenever you see it, it's time for you to perform an action.
+As you make your way through this tutorial, look out for this icon. ![user input icon](../images/userinput.png) Whenever you see it, it's time for you to perform an action.
 
 
 Pre-requisites:
@@ -23,24 +23,30 @@ Pre-requisites:
   fn ls apps
   ```
 
-### Create or Update your Dynamic Groups
-  In order to use and retrieve information about other OCI Services you must grant access to your Function via a dynamic group. For information on how to create a dynamic group, click [here.](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To)
-
-  When specifying a rule, consider the following examples:
+### Create or Update your Dynamic Group
+  In order to use and retrieve information about other OCI Services, your function
+  must be part of a dynamic group. For information on how to create a dynamic group,
+  click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To).
 
   ![user input icon](../images/userinput.png)
-  * If you want all functions in a compartment to be able to access a resource, enter a rule similar to the following that adds all functions in the compartment with the specified compartment OCID to the dynamic group:
+  When specifying the *Matching Rules*, consider the following examples:
+  * If you want all functions in a compartment to be able to access a resource,
+  enter a rule similar to the following that adds all functions in the compartment
+  with the specified compartment OCID to the dynamic group:
   ```
   ALL {resource.type = 'fnfunc', resource.compartment.id = 'ocid1.compartment.oc1..aaaaaaaa23______smwa'}
   ```
-
-  * If you want a specific function to be able to access a resource, enter a rule similar to the following that adds the function with the specified OCID to the dynamic group:
+  * If you want a specific function to be able to access a resource, enter a rule
+  similar to the following that adds the function with the specified OCID to the
+  dynamic group:
   ```
   resource.id = 'ocid1.fnfunc.oc1.iad.aaaaaaaaacq______dnya'
   ```
 
 ### Create or Update Policies
-  Now that your dynamic group is created, create a new policy that allows your new dynamic group to inspect any resources you are interested in receiving information about, in this case we will grant access to `instance-family` in the functions related compartment.
+  Now that your dynamic group is created, create a new policy that allows the
+  dynamic group to inspect any resources you are interested in receiving
+  information about, in this case we will grant access to `instance-family` in the functions related compartment.
 
   Your policy should look something like this:
 
@@ -48,17 +54,16 @@ Pre-requisites:
   ```
   Allow dynamic-group <your dynamic group name> to inspect instance-family in compartment <your compartment name>
   ```
-
   e.g.
-
   ```
   Allow dynamic-group demo-func-dyn-group to inspect instance-family in compartment demo-func-compartment
   ```
 
-  For more information on how to create policies, go [here.](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policysyntax.htm)
+  For more information on how to create policies, go [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policysyntax.htm).
 
 Create application
 ------------------
+### Create the function boilerplate
   Get the python boilerplate by running:
 
   ![user input icon](../images/userinput.png)
@@ -69,12 +74,11 @@ Create application
   ```
   fn init --runtime python list-instances
   ```
-  Enter the directory, create a new `__init__.py` file so the directory can be recognized as a package by Python.
+  Enter the directory:
 
   ![user input icon](../images/userinput.png)
   ```
   cd list-instances
-  touch __init__.py
   ```
 
 ### Create an Application that is connected to Oracle Functions
@@ -97,7 +101,6 @@ Writing the Function
   ![user input icon](../images/userinput.png)
   ```
   fdk
-  oci-cli
   oci>=2.2.18
   ```
 
@@ -108,53 +111,46 @@ Writing the Function
   ```python
   import io
   import json
-  from fdk import response
 
+  from fdk import response
   import oci
   ```
 
 ### The Handler method
-  This is what is called when the function is invoked by Oracle Functions, delete what is given from the boilerplate and update it to contain the following:
+  This is what is called when the function is invoked by Oracle Functions, update
+  it to call *list_instances* as follow:
 
   ![user input icon](../images/userinput.png)
   ```python
   def handler(ctx, data: io.BytesIO=None):
       signer = oci.auth.signers.get_resource_principals_signer()
-      resp = do(signer)
+      resp = list_instances(signer)
       return response.Response(
           ctx, response_data=json.dumps(resp),
           headers={"Content-Type": "application/json"}
       )
   ```
 
-### The do method
-  Create the following method.
+### The *list_instances* method
+  Create the *list_instances* method. This is where we'll put the bulk of our code
+  that will connect to OCI and return the list of instances in our compartment.
 
   ![user input icon](../images/userinput.png)
   ```python
-  def do(signer):
-  ```
-  This is where we'll put the bulk of our code that will connect to OCI and return the list of compartments in our tenancy.
-
-  ![user input icon](../images/userinput.png)
-  ```python
-      # List instances (in IAD) --------------------------------------------------------------------------------
+  def list_instances(signer):
       client = oci.core.ComputeClient(config={}, signer=signer)
-      # Use this API to manage resources such as virtual cloud networks (VCNs), compute instances, and block storage volumes.
       try:
           inst = client.list_instances(signer.compartment_id)
-
           inst = [[i.id, i.display_name] for i in inst.data]
       except Exception as e:
           inst = str(e)
-
-      resp = {
-               "instances": inst,
-              }
-
+      resp = { "instances": inst }
       return resp
   ```
-  Here we are creating a [ComputeClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the resource principal's signer data, since resource principal is already pre-configured we do not need to pass in a valid config dictionary, we are now able to make a call to identity services for information on our compartments.
+  Here we are creating a [ComputeClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the resource principal's signer data,
+  since resource principal is already pre-configured we do not need to pass in a
+  valid config dictionary, we are now able to make a call to identity services
+  for information on our compartments.
 
 Test
 ----

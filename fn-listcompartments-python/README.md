@@ -1,13 +1,13 @@
-# Resource Principal function for returning the compartments of a User's Tenancy.
+# Function that returns the list of compartments in a User's Tenancy.
 
-This function uses Resource Principles to securely receive information about the user's information from OCI and returns a list of all compartments within the tenancy regardless of region.
+This function uses Resource Principals to securely authorize an instance to make
+API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
+It returns a list of all compartments within the tenancy regardless of region.
 
-  Uses the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html) to create a client that receive user information when called in the OCI or a valid config file exists.
-
-  As you make your way through this tutorial, look out for this icon. ![user input icon](../images/userinput.png) Whenever you see it, it's time for you to perform an action.
+As you make your way through this tutorial, look out for this icon. ![user input icon](../images/userinput.png) Whenever you see it, it's time for you to perform an action.
 
 
-Pre-requisites:
+Pre-requisites
 ---------------
   1. Start by making sure all of your policies are correct from this [guide](https://docs.cloud.oracle.com/iaas/Content/Functions/Tasks/functionscreatingpolicies.htm?tocpath=Services%7CFunctions%7CPreparing%20for%20Oracle%20Functions%7CConfiguring%20Your%20Tenancy%20for%20Function%20Development%7C_____4)
 
@@ -25,6 +25,7 @@ Pre-requisites:
 
 Create application
 ------------------
+### Create the function boilerplate
   Get the python boilerplate by running:
 
   ![user input icon](../images/userinput.png)
@@ -35,15 +36,14 @@ Create application
   ```
   fn init --runtime python list-compartments
   ```
-  Enter the directory, create a new `__init__.py` file so the directory can be recognized as a package by Python.
+  Enter the directory:
 
   ![user input icon](../images/userinput.png)
   ```
   cd list-compartments
-  touch __init__.py
   ```
 
-### Create an Application that is connected to Oracle Functions
+### Create an Application to run your functions
   ![user input icon](../images/userinput.png)
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]'
@@ -56,14 +56,13 @@ Create application
   ```
 
 Writing the Function
-------------------
+--------------------
 ### Requirements
   Update your requirements.txt file to contain the following:
 
   ![user input icon](../images/userinput.png)
   ```
   fdk
-  oci-cli
   oci>=2.2.18
   ```
 
@@ -80,13 +79,13 @@ Writing the Function
   ```
 
 ### The Handler method
-  This is what is called when the function is invoked by Oracle Functions, delete what is given from the boilerplate and update it to contain the following:
+  This is what is called when the function is invoked by Oracle Functions, update it to call *list_compartments* as follow:
 
   ![user input icon](../images/userinput.png)
   ```python
   def handler(ctx, data: io.BytesIO=None):
       signer = oci.auth.signers.get_resource_principals_signer()
-      resp = do(signer)
+      resp = list_compartments(signer)
       return response.Response(
           ctx, response_data=json.dumps(resp),
           headers={"Content-Type": "application/json"}
@@ -94,35 +93,26 @@ Writing the Function
   ```
   The line `signer = oci.auth.signers.get_resource_principals_signer()` gives us the configuration information of the calling tenancy and compartment which will allow us to gain access to any service in OCI.
 
-### The do method
-  Create the following method.
+### The *list_compartments* method
+  Create the *list_compartments* method. This is where we'll put the bulk of our code that will connect to OCI and return the list of compartments in our tenancy.
 
   ![user input icon](../images/userinput.png)
   ```python
-  def do(signer):
-  ```
-  This is where we'll put the bulk of our code that will connect to OCI and return the list of compartments in our tenancy.
-
-  ![user input icon](../images/userinput.png)
-  ```python
-
-      # List compartments --------------------------------------------------------------------------------
+  def list_compartments(signer):
       client = oci.identity.IdentityClient(config={}, signer=signer)
       # OCI API for managing users, groups, compartments, and policies.
-
       try:
           # Returns a list of all compartments and subcompartments in the tenancy (root compartment)
-          compartments = client.list_compartments(signer.tenancy_id, compartment_id_in_subtree=True, access_level='ANY')
-
+          compartments = client.list_compartments(
+              signer.tenancy_id,
+              compartment_id_in_subtree=True,
+              access_level='ANY'
+          )
           # Create a list that holds a list of the compartments id and name next to each other.
           compartments = [[c.id, c.name] for c in compartments.data]
       except Exception as e:
           compartments = str(e)
-
-      resp = {
-               "compartments": compartments,
-              }
-
+      resp = {"compartments": compartments}
       return resp
   ```
   Here we are creating an [IdentityClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/identity/client/oci.identity.IdentityClient.html) from the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html), which allows us to connect to OCI with the resource principal's signer data, since resource principal is already pre-configured we do not need to pass in a valid config dictionary, we are now able to make a call to identity services for information on our compartments.
