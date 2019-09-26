@@ -8,7 +8,7 @@
 
   1. [ObjectStorageClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) which allows us to connect to OCI with the use of [Resource Principals](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html?highlight=Resource%20Principals#resource-principals-signer) which authenticates our call to Object storage services.
 
-  As you make your way through this tutorial, look out for this icon. ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE) Whenever you see it, it's time for you to perform an action.
+  As you make your way through this tutorial, look out for this icon. ![user input icon](../images/userinput.png) Whenever you see it, it's time for you to perform an action.
 
 
 Pre-requisites:
@@ -20,7 +20,7 @@ Pre-requisites:
   3. Have your Oracle Object Storage Namespace available. This can be found by logging into your [cloud account](https://console.us-ashburn-1.oraclecloud.com/), and navigating to your Tenancy information.
 
 ### Switch to the correct context
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE)
+  ![user input icon](../images/userinput.png)
   ```
   fn use context <your context name>
   ```
@@ -34,7 +34,7 @@ Pre-requisites:
 
   When specifying a rule, consider the following examples:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE)
+  ![user input icon](../images/userinput.png)
   * If you want all functions in a compartment to be able to access a resource, enter a rule similar to the following that adds all functions in the compartment with the specified compartment OCID to the dynamic group:
   ```
   ALL {resource.type = 'fnfunc', resource.compartment.id = 'ocid1.compartment.oc1..aaaaaaaa23______smwa'}
@@ -50,7 +50,7 @@ Pre-requisites:
 
   Your policy should look something like this:
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE)
+  ![user input icon](../images/userinput.png)
   ```
   Allow dynamic-group <your dynamic group name> to inspect object-family in compartment <your compartment name>
   ```
@@ -66,7 +66,7 @@ Create Applications
 --------------------
 1. Create an Application that is connected to Oracle Functions
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE)
+  ![user input icon](../images/userinput.png)
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]
   ```
@@ -80,19 +80,19 @@ Create Applications
 
   2. Clone this repository in a separate directory
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-control-instances/master/images/userinput.png?token=AK4AYAQ534QXEF2JHIDUZRS5BP632)
+  ![user input icon](../images/userinput.png)
   ```
   git clone https://github.com/arodri202/oci-python-object-storage.git
   ```
   3. Change to the correct directory where you cloned this example.
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-control-instances/master/images/userinput.png?token=AK4AYAQ534QXEF2JHIDUZRS5BP632)
+  ![user input icon](../images/userinput.png)
   ```
   cd oci-python-object-storage
   ```
   4. Enter each function's directory and update the `func.yaml` to include the desired tenancy's Object Storage Namespace
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-rp-control-instances/master/images/userinput.png?token=AK4AYAQ534QXEF2JHIDUZRS5BP632)
+  ![user input icon](../images/userinput.png)
   ```
   config:
     OCI_NAMESPACE: <TO BE FILLED>
@@ -102,7 +102,7 @@ Test
 ----
 ### Deploy the function
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE)
+  ![user input icon](../images/userinput.png)
   ```
   fn -v deploy --app <your app name> --all
   ```
@@ -116,7 +116,7 @@ Test
 
 ### Invoke the function
 
-  ![user input icon](https://raw.githubusercontent.com/arodri202/oci-python-object-storage/master/images/userinput.png?token=AK4AYAVV2EYKYR4LI72BV6S5CUJZE)
+  ![user input icon](../images/userinput.png)
   ```
   echo -n <JSON object> | fn invoke <your app name> <your function name>
   ```
