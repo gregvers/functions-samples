@@ -1,7 +1,6 @@
 # Oracle Functions Samples
 This repository provides examples of Oracle Functions.
-* Function that lists compartments in a tenancy
-  - [Python](./fn-listcompartments-python/README.md)
+* Function that lists compartments in a tenancy - [Python](./fn-listcompartments-python/README.md)
 * Function that lists Compute instances in a compartment
 * Function that lists objects from a given bucket in Object Storage
 * Function that retrieves an object from Object Storage
