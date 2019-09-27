@@ -4,9 +4,9 @@ This function uses Resource Principals to securely authorize a function to make
 API calls to OCI services using the [OCI Java SDK](https://docs.cloud.oracle.com/iaas/tools/java/latest/).
 It returns a list of objects from a given bucket in Object Storage.
 
-The function calls the following OCI Python SDK classes:
-* [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html#resource-principals-signer) to authenticate
-* [Object Storage Client](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) to interact with Object Storage
+The function calls the following OCI Java SDK classes:
+* [InstancePrincipalsAuthenticationDetailsProvider](https://docs.cloud.oracle.com/iaas/tools/java/latest/com/oracle/bmc/auth/InstancePrincipalsAuthenticationDetailsProvider.html) to authenticate
+* [ObjectStorageClient](https://docs.cloud.oracle.com/iaas/tools/java/latest/com/oracle/bmc/objectstorage/ObjectStorageClient.html) to interact with Object Storage
 
 As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
 Whenever you see it, it's time for you to perform an action.
