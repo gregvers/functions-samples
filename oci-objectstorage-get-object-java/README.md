@@ -147,7 +147,7 @@ Use the *fn* CLI to invoke your function with your own object name, bucket name 
 
   ![user input icon](../images/userinput.png)
   ```
-  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>"}' | fn invoke <app name> get-object
+  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>"}' | fn invoke <app_name> get-object
   ```
   e.g.
   ```

@@ -1,16 +1,15 @@
-# Function that creates an object in a bucket in Object Storage using the OCI Python SDK
+# Function that creates an object in a bucket in Object Storage using the OCI Java SDK
 
 This function uses Resource Principals to securely authorize a function to make
-API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
+API calls to OCI services using the [OCI Java SDK](https://docs.cloud.oracle.com/iaas/tools/java/latest/).
 It creates an object in a bucket in Object Storage and returns a message with a status.
 
-The function calls the following OCI Python SDK classes:
-* [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html#resource-principals-signer) to authenticate
-* [Object Storage Client](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) to interact with Object Storage
+The function calls the following OCI Java SDK classes:
+* [InstancePrincipalsAuthenticationDetailsProvider](https://docs.cloud.oracle.com/iaas/tools/java/latest/com/oracle/bmc/auth/InstancePrincipalsAuthenticationDetailsProvider.html) to authenticate
+* [ObjectStorageClient](https://docs.cloud.oracle.com/iaas/tools/java/latest/com/oracle/bmc/objectstorage/ObjectStorageClient.html) to interact with Object Storage
 
 As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
 Whenever you see it, it's time for you to perform an action.
-
 
 Pre-requisites:
 ---------------
@@ -101,11 +100,11 @@ Create the application and function
 
 ### Review the function
   In the current folder, you have the following files:
-  - [requirements.txt](./requirements.txt) specifies all the dependencies for your function
+  - [pom.xml](./pom.xml) specifies all the dependencies for your function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
-  - [func.py](./func.py) which is your actual Python function
+  - [src/main/java/io/fnproject/example/ObjectStorePutFunction.java](./src/main/java/io/fnproject/example/ObjectStorePutFunction.java) which contains the Java code
 
-  The name of your function *put-object* is specified in [func.yaml](./func.yaml).
+  The name of your function *list-objects* is specified in [func.yaml](./func.yaml).
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -120,36 +119,38 @@ Create the application and function
   ```
 
 ### Set function configuration values
-  The function requires the config value *OCI_NAMESPACE* to be set.
+  The function requires the config value *NAMESPACE* to be set.
 
   ![user input icon](../images/userinput.png)
 
   Use the *fn* CLI to set the config value:
   ```
-  fn config function <your app name> <function name> OCI_NAMESPACE <your namespace>
+  fn config function <your app name> <function name> NAMESPACE <your namespace>
   ```
   e.g.
   ```
-  fn config function object-crud put-object OCI_NAMESPACE mytenancy
+  fn config function object-crud list-objects NAMESPACE mytenancy
   ```
   Note that the config value can also be set at the application level:
   ```
-  fn config app <your app name> OCI_NAMESPACE <your namespace>
+  fn config app <your app name> NAMESPACE <your namespace>
   ```
   e.g.
   ```
-  fn config app object-crud OCI_NAMESPACE mytenancy
+  fn config app object-crud NAMESPACE mytenancy
   ```
 
 Test
 ----
 ### Invoke the function
+Use the *fn* CLI to invoke your function with your own bucket name and app name:
+
   ![user input icon](../images/userinput.png)
   ```
-  echo -n <JSON object> | fn invoke <your app name> <your function name>
+  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>", "content": "<text_content>"}' | fn invoke <your app> putobject
   ```
   e.g.
   ```
-  echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>", "content": "<content>"}' | fn invoke object-crud put-object
+  echo -n '{"name": "file1.txt", "bucketName":"test", "content": "This file was created in OCI object storage bucket using Oracle Functions"}' | fn invoke object-crud put-object
   ```
 Upon success, you should see a success message appear in your terminal.
