@@ -90,7 +90,7 @@ Create the application and function
 
   e.g.
   ```
-  fn create app python-object-storage --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
+  fn create app object-crud --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
   ```
 
 ### Review and customize your function
