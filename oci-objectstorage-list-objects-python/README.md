@@ -83,8 +83,8 @@ click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingd
 
 Create the application and function
 -----------------------------------
-### Create an Application to run your function
-  You can use an application already created or create a new one as follow:
+### Create an Application to run the function
+  You can use an application already created or create a new one as follows:
 
   ![user input icon](../images/userinput.png)
   ```
@@ -99,7 +99,7 @@ Create the application and function
   fn create app object-crud --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
   ```
 
-### Review your function
+### Review the function
   In the current folder, you have the following files:
   - [requirements.txt](./requirements.txt) specifies all the dependencies for your function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
@@ -150,6 +150,6 @@ Test
   ```
   e.g.
   ```
-  echo -n '{"bucketName": "<bucket-name>"}' | fn invoke object-crud list-object
+  echo -n '{"bucketName": "<bucket-name>"}' | fn invoke object-crud list-objects
   ```
 Upon success, you should see either a list of objects or a success message appear in your terminal.

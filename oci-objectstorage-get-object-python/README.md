@@ -84,8 +84,9 @@ click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingd
 
 Create the application and function
 -----------------------------------
-### Create an Application to run your function
-  You can use an application already created or create a new one as follow:
+### Create an Application to run the function
+  You can use an application already created or create a new one as follows:
+
   ![user input icon](../images/userinput.png)
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]
@@ -100,26 +101,13 @@ Create the application and function
   fn create app object-crud --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
   ```
 
-### Review and customize your function
+### Review the function
   In the current folder, you have the following files:
   - [requirements.txt](./requirements.txt) specifies all the dependencies for your function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
   - [func.py](./func.py) which is your actual Python function
 
   The name of your function *get-object* is specified in [func.yaml](./func.yaml).
-
-  ![user input icon](../images/userinput.png)
-
-  Update the `func.yaml` to include the desired tenancy's Object Storage Namespace
-  ```
-  config:
-    OCI_NAMESPACE: <TO BE FILLED>
-  ```
-  e.g.
-  ```
-  config:
-    OCI_NAMESPACE: mytenancy
-  ```
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -131,6 +119,28 @@ Create the application and function
   e.g.
   ```
   fn -v deploy --app object-crud
+  ```
+
+### Set function configuration values
+  The function requires the config value *OCI_NAMESPACE* to be set.
+
+  ![user input icon](../images/userinput.png)
+
+  Use the *fn* CLI to set the config value:
+  ```
+  fn config function <your app name> <function name> OCI_NAMESPACE <your namespace>
+  ```
+  e.g.
+  ```
+  fn config function object-crud get-objects OCI_NAMESPACE mytenancy
+  ```
+  Note that the config value can also be set at the application level:
+  ```
+  fn config app <your app name> OCI_NAMESPACE <your namespace>
+  ```
+  e.g.
+  ```
+  fn config app object-crud OCI_NAMESPACE mytenancy
   ```
 
 Test
