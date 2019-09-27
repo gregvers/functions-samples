@@ -29,7 +29,7 @@ This folder includes files for both Java 11 and Java 8:
 * Java 8 - use [func-jdk8.yaml](func-jdk8.yaml) and
            [pom-jdk8.xml](pom-jdk8.xml)
 
-![](images/userinput.png)
+![user input icon](../images/userinput.png)
 
 Rename `func-jdkXX.yaml` to `func.yaml` and `pom-jdkXX.xml` to `pom.xml`
 
