@@ -12,31 +12,27 @@ def handler(ctx, data: io.BytesIO=None):
     try:
         body = json.loads(data.getvalue())
         bucketName = body["bucketName"]
-        fileName = body["fileName"]
+        fileName = body["objectName"]
         content = body["content"]
-
     except Exception as e:
         error = """
                 Input a JSON object in the format: '{"bucketName": "<bucket name>",
-                "content": "<content>", "fileName": "<file name>"}'
+                "content": "<content>", "objectName": "<object name>"}'
                 """
         raise Exception(error)
-    resp = do(signer, bucketName, fileName, content)
-
+    resp = put_object(signer, bucketName, objectName, content)
     return response.Response(
-        ctx, response_data=json.dumps(resp),
+        ctx,
+        response_data=json.dumps(resp),
         headers={"Content-Type": "application/json"}
     )
 
-def do(signer, bucketName, fileName, content):
+def put_object(signer, bucketName, objectName, content):
     client = oci.object_storage.ObjectStorageClient(config={}, signer=signer)
     try:
-        object = client.put_object(os.environ.get("OCI_NAMESPACE"), bucketName, fileName, json.dumps(content))
-        output = "Success: Put object '" + fileName + "' in bucket '" + bucketName + "'"
+        object = client.put_object(os.environ.get("OCI_NAMESPACE"), bucketName, objectName, json.dumps(content))
+        output = "Success: Put object '" + objectName + "' in bucket '" + bucketName + "'"
     except Exception as e:
         output = "Failed: " + str(e.message)
-
-    response = {
-        "state": output,
-    }
+    response = { "state": output }
     return response

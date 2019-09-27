@@ -1,4 +1,4 @@
-# Function that retrieves an object from a bucket in Object Storage with the OCI Python SDK
+# Function that retrieves an object from a bucket in Object Storage using the OCI Python SDK
 
 This function uses Resource Principals to securely authorize a function to make
 API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
@@ -99,6 +99,8 @@ Create the application and function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
   - [func.py](./func.py) which is your actual Python function
 
+  The name of your function *get-object* is specified in [func.yaml](./func.yaml).
+
   ![user input icon](../images/userinput.png)
 
   Update the `func.yaml` to include the desired tenancy's Object Storage Namespace
@@ -113,8 +115,9 @@ Create the application and function
   ```
 
 ### Deploy the function
-
   ![user input icon](../images/userinput.png)
+
+  From the current folder, run the following command:
   ```
   fn -v deploy --app <your app name>
   ```
