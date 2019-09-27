@@ -1,12 +1,12 @@
 # Function that returns the list of instances in the calling Compartment.
 
 This function uses Resource Principals to securely authorize a function to make
-API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
+API calls to OCI services using the [OCI Java SDK](https://docs.cloud.oracle.com/iaas/tools/java/latest/).
 It returns a list of all instances within the compartment that calls the function.
 
-The function calls the following OCI Python SDK classes:
-* [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html#resource-principals-signer) to authenticate
-* [Compute Client](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/core/client/oci.core.ComputeClient.html) to interact with Compute
+The function calls the following OCI Java SDK classes:
+* [InstancePrincipalsAuthenticationDetailsProvider](https://docs.cloud.oracle.com/iaas/tools/java/latest/com/oracle/bmc/auth/InstancePrincipalsAuthenticationDetailsProvider.html) to authenticate
+* [ComputeClient](https://docs.cloud.oracle.com/iaas/tools/java/latest/com/oracle/bmc/core/ComputeClient.html) to interact with Compute
 
 As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
 Whenever you see it, it's time for you to perform an action.
@@ -96,12 +96,12 @@ Create the application and function
   ```
 
 ### Review and customize your function
-  In the current folder, you have the following files:
-  - [requirements.txt](./requirements.txt) which specifies all the dependencies for your function
-  - [func.yaml](./func.yaml) which contains metadata about your function and declares properties
-  - [func.py](./func.py) which is your actual Python function
+In the current folder, you have the following files:
+- [pom.xml](./pom.xml) specifies all the dependencies for your function
+- [func.yaml](./func.yaml) that contains metadata about your function and declares properties
+- [src/main/java/io/fnproject/example/ComputeInstancesList.java](./src/main/java/io/fnproject/example/ComputeInstancesList.java) which contains the Java code
 
-  The name of your function *get-object* is specified in [func.yaml](./func.yaml).
+The name of your function *list-instances* is specified in [func.yaml](./func.yaml).
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -116,12 +116,14 @@ Create the application and function
 Test
 ----
 ### Invoke the function
+Use the *fn* CLI to invoke your function with your app name and the compartment OCID:
+
   ![user input icon](../images/userinput.png)
   ```
-  fn invoke <your app name> <your function name>
+  echo -n '<COMPARTMENT_OCID>' | fn invoke <your app name> <your function name>
   ```
   e.g.
   ```
-  fn invoke myapp list-instances
+  echo -n 'ocid1.compartment.oc1...2jn3htfoobar' | fn invoke myapp list-instances
   ```
-Upon success, you should see the list of instances in your compartment on your terminal.
+Upon success, you should see the list of instances in your compartment appear on your terminal.
