@@ -5,8 +5,8 @@ API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infras
 It creates an object in a bucket in Object Storage and returns a message with a status.
 
 The function calls the following OCI Python SDK classes:
-* [Resource Principals](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html?highlight=Resource%20Principals#resource-principals-signer) to authenticate
-* [ObjectStorageClient](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) to interact with Object Storage
+* [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html?highlight=Resource%20Principals#resource-principals-signer) to authenticate
+* [Object Storage Client](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) to interact with Object Storage
 
 As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
 Whenever you see it, it's time for you to perform an action.
