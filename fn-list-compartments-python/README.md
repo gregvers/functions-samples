@@ -20,6 +20,7 @@ Pre-requisites
 
 ### Context
 Switch to the correct context
+
   ![user input icon](../images/userinput.png)
   ```
   fn use context <your context name>
