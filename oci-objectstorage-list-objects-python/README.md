@@ -152,4 +152,4 @@ Test
   ```
   echo -n '{"bucketName": "<bucket-name>"}' | fn invoke object-crud list-objects
   ```
-Upon success, you should see either a list of objects or a success message appear in your terminal.
+Upon success, you should see either a list of objects on your terminal.

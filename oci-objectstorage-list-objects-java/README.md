@@ -1,8 +1,8 @@
-# Function that retrieves an object from a bucket in Object Storage using the OCI Python SDK
+# Function that lists objects from a bucket in Object Storage using the OCI Java SDK
 
 This function uses Resource Principals to securely authorize a function to make
-API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/index.html).
-It returns the content of an object from a bucket in Object Storage.
+API calls to OCI services using the [OCI Java SDK](https://docs.cloud.oracle.com/iaas/tools/java/latest/).
+It returns a list of objects from a given bucket in Object Storage.
 
 The function calls the following OCI Python SDK classes:
 * [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html#resource-principals-signer) to authenticate
@@ -10,7 +10,6 @@ The function calls the following OCI Python SDK classes:
 
 As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
 Whenever you see it, it's time for you to perform an action.
-
 
 Pre-requisites:
 ---------------
@@ -22,6 +21,17 @@ Pre-requisites:
   logging into your [cloud account](https://console.us-ashburn-1.oraclecloud.com/),
   under your user profile, click on your Tenancy. Your Object Storage Namespace
   is shown there.
+
+## Select Java 11 or Java 8
+This folder includes files for both Java 11 and Java 8:
+* Java 11 - use [func-jdk11.yaml](func-jdk11.yaml) and
+[pom-jdk11.xml](pom-jdk11.xml)
+* Java 8 - use [func-jdk8.yaml](func-jdk8.yaml) and
+           [pom-jdk8.xml](pom-jdk8.xml)
+
+![](images/userinput.png)
+
+Rename `func-jdkXX.yaml` to `func.yaml` and `pom-jdkXX.xml` to `pom.xml`
 
 ### Context
 Switch to the correct context
@@ -72,13 +82,12 @@ click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingd
 
   Your policy should look something like this:
   ```
-  Allow dynamic-group <your dynamic group name> to read object-family in compartment <your compartment name>
+  Allow dynamic-group <your dynamic group name> to inspect object-family in compartment <your compartment name>
   ```
   e.g.
   ```
-  Allow dynamic-group demo-func-dyn-group to read object-family in compartment demo-func-compartment
+  Allow dynamic-group demo-func-dyn-group to inspect object-family in compartment demo-func-compartment
   ```
-
   For more information on how to create policies, go [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policysyntax.htm).
 
 
@@ -95,7 +104,6 @@ Create the application and function
   navigating to Core Infrastructure > Networking > Virtual Cloud Networks. Make
   sure you are in the correct Region and Compartment, click on your VNC and
   select the subnet you wish to use.
-
   e.g.
   ```
   fn create app object-crud --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
@@ -103,11 +111,12 @@ Create the application and function
 
 ### Review the function
   In the current folder, you have the following files:
-  - [requirements.txt](./requirements.txt) specifies all the dependencies for your function
-  - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
-  - [func.py](./func.py) which is your actual Python function
+  - `pom.xml` specifies all the dependencies for your function
+  - `func.yaml` that contains metadata about your function and declares properties
+  - `src/main/java/com/example/fn/ObjectStoreList.java` which contains the Java code
+  - `src/test/java/com/example/fn/ObjectStoreListTest.java` which contains the Unit tests
 
-  The name of your function *get-object* is specified in [func.yaml](./func.yaml).
+  The name of your function *list-objects* is specified in `func.yaml`.
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -122,36 +131,34 @@ Create the application and function
   ```
 
 ### Set function configuration values
-  The function requires the config value *OCI_NAMESPACE* to be set.
+  The function requires the config value *NAMESPACE* to be set.
 
   ![user input icon](../images/userinput.png)
 
   Use the *fn* CLI to set the config value:
   ```
-  fn config function <your app name> <function name> OCI_NAMESPACE <your namespace>
+  fn config function <your app name> <function name> NAMESPACE <your namespace>
   ```
   e.g.
   ```
-  fn config function object-crud get-objects OCI_NAMESPACE mytenancy
+  fn config function object-crud list-objects NAMESPACE mytenancy
   ```
   Note that the config value can also be set at the application level:
   ```
-  fn config app <your app name> OCI_NAMESPACE <your namespace>
+  fn config app <your app name> NAMESPACE <your namespace>
   ```
   e.g.
   ```
-  fn config app object-crud OCI_NAMESPACE mytenancy
+  fn config app object-crud NAMESPACE mytenancy
   ```
 
 Test
 ----
 ### Invoke the function
+Use the *fn* CLI to invoke your function with your own bucket name and app name:
+
   ![user input icon](../images/userinput.png)
   ```
-  echo -n <JSON object> | fn invoke <your app name> <your function name>
+  echo -n '<bucket-name>' | fn invoke object-crud list-objects
   ```
-  e.g.
-  ```
-  echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>"}' | fn invoke object-crud get-object
-  ```
-Upon success, you should see the content of the object appear in your terminal.
+Upon success, you should see either a list of objects on your terminal.
