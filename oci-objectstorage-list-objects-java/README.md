@@ -159,6 +159,10 @@ Use the *fn* CLI to invoke your function with your own bucket name and app name:
 
   ![user input icon](../images/userinput.png)
   ```
-  echo -n '<bucket-name>' | fn invoke object-crud list-objects
+  echo -n '<bucket_name>' | fn invoke <app_name> list-objects
+  ```
+  e.g.
+  ```
+  echo -n 'mybucket' | fn invoke object-crud list-objects
   ```
 Upon success, you should see either a list of objects on your terminal.
