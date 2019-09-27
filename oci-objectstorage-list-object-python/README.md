@@ -55,6 +55,12 @@ click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingd
   ```
   resource.id = 'ocid1.fnfunc.oc1.iad.aaaaaaaaacq______dnya'
   ```
+  * If you want all functions with a specific defined tag (free-form tags are
+  not supported) to be able to access a resource, enter a rule similar to the
+  following that adds all functions with the defined tag to the dynamic group :
+  ```
+  ALL {resource.type = 'fnfunc', tag.department.operations.value = '45'}
+  ```
 
 ### Create or Update Policies
   Now that your dynamic group is created, create a new policy that allows the
@@ -78,6 +84,7 @@ click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingd
 Create the application and function
 -----------------------------------
 ### Create an Application to run your function
+  You can use an application already created or create a new one as follow:
   ![user input icon](../images/userinput.png)
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]

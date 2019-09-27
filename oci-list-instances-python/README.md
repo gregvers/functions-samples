@@ -50,6 +50,12 @@ Switch to the correct context
   ```
   resource.id = 'ocid1.fnfunc.oc1.iad.aaaaaaaaacq______dnya'
   ```
+  * If you want all functions with a specific defined tag (free-form tags are
+  not supported) to be able to access a resource, enter a rule similar to the
+  following that adds all functions with the defined tag to the dynamic group :
+  ```
+  ALL {resource.type = 'fnfunc', tag.department.operations.value = '45'}
+  ```
 
 ### Create or Update Policies
   Now that your dynamic group is created, create a new policy that allows the
@@ -74,6 +80,7 @@ Switch to the correct context
 Create the application and function
 -----------------------------------
 ### Create an Application to run your function
+  You can use an application already created or create a new one as follow:
   ![user input icon](../images/userinput.png)
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]'
@@ -85,7 +92,7 @@ Create the application and function
 
   e.g.
   ```
-  fn create app resource-principal --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
+  fn create app myapp --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaacnh..."]'
   ```
 
 ### Review and customize your function
@@ -103,7 +110,7 @@ Create the application and function
   ```
   e.g.
   ```
-  fn -v deploy --app resource-principal
+  fn -v deploy --app myapp
   ```
 
 Test
@@ -115,6 +122,6 @@ Test
   ```
   e.g.
   ```
-  fn invoke resource-principal list-instances
+  fn invoke myapp list-instances
   ```
 Upon success, you should see all of the instances in your compartment appear in your terminal.
