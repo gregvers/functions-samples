@@ -6,7 +6,7 @@ This repository provides examples demonstrating how to use Oracle Functions.
 * Function that lists Compute instances in a compartment - [Python](./oci-list-instances-python/README.md)
 * Function that lists objects from a given bucket in Object Storage - [Java](./oci-objectstorage-list-objects-java/README.md), [Python](./oci-objectstorage-list-objects-python/README.md)
 * Function that retrieves an object from Object Storage - [Java](./oci-objectstorage-get-object-java/README.md), [Python](./oci-objectstorage-get-object-python/README.md)
-* Function that uploads data in an object in Object Storage - [Python](./oci-objectstorage-put-object-python/README.md)
+* Function that uploads data in an object in Object Storage - [Java](./oci-objectstorage-put-object-java/README.md), [Python](./oci-objectstorage-put-object-python/README.md)
 
 ## Documentation
 
