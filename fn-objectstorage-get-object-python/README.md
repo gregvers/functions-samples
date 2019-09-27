@@ -5,7 +5,7 @@ API calls to OCI services using the [OCI Python SDK](https://oracle-cloud-infras
 It returns the content of an object from a bucket in Object Storage.
 
 The function calls the following OCI Python SDK classes:
-* [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html?highlight=Resource%20Principals#resource-principals-signer) to authenticate
+* [Resource Principals Signer](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/signing.html#resource-principals-signer) to authenticate
 * [Object Storage Client](https://oracle-cloud-infrastructure-python-sdk.readthedocs.io/en/latest/api/object_storage/client/oci.object_storage.ObjectStorageClient.html) to interact with Object Storage
 
 As you make your way through this tutorial, look out for this icon ![user input icon](../images/userinput.png).
@@ -23,7 +23,8 @@ Pre-requisites:
   under your user profile, click on your Tenancy. Your Object Storage Namespace
   is shown there.
 
-### Switch to the correct context
+### Context
+Switch to the correct context
   ![user input icon](../images/userinput.png)
   ```
   fn use context <your context name>
@@ -33,7 +34,7 @@ Pre-requisites:
   fn ls apps
   ```
 
-### Create or Update your Dynamic Groups
+### Create or Update your Dynamic Group
 In order to use and retrieve information about other OCI Services, your function
 must be part of a dynamic group. For information on how to create a dynamic group,
 click [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Tasks/managingdynamicgroups.htm#To).
@@ -82,7 +83,6 @@ Create the application and function
   ```
   fn create app <app-name> --annotation oracle.com/oci/subnetIds='["<subnet-ocid>"]
   ```
-
   You can find the subnet-ocid by logging on to [cloud.oracle.com](https://cloud.oracle.com/en_US/sign-in),
   navigating to Core Infrastructure > Networking > Virtual Cloud Networks. Make
   sure you are in the correct Region and Compartment, click on your VNC and
@@ -121,9 +121,7 @@ Create the application and function
   ```
   fn -v deploy --app <your app name>
   ```
-
   e.g.
-
   ```
   fn -v deploy --app object-crud
   ```
@@ -131,7 +129,6 @@ Create the application and function
 Test
 ----
 ### Invoke the function
-
   ![user input icon](../images/userinput.png)
   ```
   echo -n <JSON object> | fn invoke <your app name> <your function name>
@@ -140,5 +137,4 @@ Test
   ```
   echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>"}' | fn invoke object-crud get-object
   ```
-
-Upon success, you should see either a list of objects or a success message appear in your terminal.
+Upon success, you should see a success message appear in your terminal.
