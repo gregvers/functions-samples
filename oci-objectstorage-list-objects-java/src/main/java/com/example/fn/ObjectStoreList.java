@@ -1,3 +1,4 @@
+// Copyright (c) 2019, Oracle and/or its affiliates.  All rights reserved.
 package com.example.fn;
 
 import com.oracle.bmc.auth.ResourcePrincipalAuthenticationDetailsProvider;

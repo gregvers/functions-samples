@@ -151,6 +151,6 @@ Use the *fn* CLI to invoke your function with your own object name, bucket name 
   ```
   e.g.
   ```
-  echo -n '{"name": "file.txt", "bucketName":"mybucket"}' | fn invoke object-crud get-object
+  echo -n '{"name": "file1.txt", "bucketName":"mybucket"}' | fn invoke object-crud get-object
   ```
 Upon success, you should see the content of the object appear in your terminal.
