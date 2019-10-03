@@ -67,11 +67,11 @@ Switch to the correct context
 
   Your policy should look something like this:
   ```
-  Allow dynamic-group <your dynamic group name> to read instance-family in compartment <your compartment name>
+  Allow dynamic-group <your dynamic group name> to inspect instances in compartment <your compartment name>
   ```
   e.g.
   ```
-  Allow dynamic-group demo-func-dyn-group to read instance-family in compartment demo-func-compartment
+  Allow dynamic-group demo-func-dyn-group to inspect instances in compartment demo-func-compartment
   ```
 
   For more information on how to create policies, go [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policysyntax.htm).

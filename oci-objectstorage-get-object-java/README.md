@@ -102,9 +102,9 @@ Create the application and function
   In the current folder, you have the following files:
   - [pom.xml](./pom.xml) specifies all the dependencies for your function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
-  - [src/main/java/io/fnproject/example/ObjectStoreGetFunction.java](./src/main/java/io/fnproject/example/ObjectStoreGetFunction.java) which contains the Java code
+  - [src/main/java/com/example/fn/ObjectStorageGetObjects.java](./src/main/java/com/example/fn/ObjectStorageGetObjects.java) which contains the Java code
 
-  The name of your function *list-objects* is specified in [func.yaml](./func.yaml).
+  The name of your function *oci-objectstorage-get-object* is specified in [func.yaml](./func.yaml).
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -147,10 +147,10 @@ Use the *fn* CLI to invoke your function with your own object name, bucket name 
 
   ![user input icon](../images/userinput.png)
   ```
-  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>"}' | fn invoke <app_name> get-object
+  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>"}' | fn invoke <app_name> oci-objectstorage-get-object
   ```
   e.g.
   ```
-  echo -n '{"name": "file1.txt", "bucketName":"mybucket"}' | fn invoke object-crud get-object
+  echo -n '{"name": "file1.txt", "bucketName":"mybucket"}' | fn invoke object-crud oci-objectstorage-get-object
   ```
 Upon success, you should see the content of the object appear in your terminal.

@@ -8,7 +8,7 @@
         <fdk.version>1.0.100</fdk.version>
     </properties>
     <groupId>com.example.fn</groupId>
-    <artifactId>list-objects</artifactId>
+    <artifactId>oci-objectstorage-list-objects</artifactId>
     <version>1.0.0</version>
 
     <repositories>
@@ -29,12 +29,13 @@
             <dependency>
                 <groupId>com.oracle.oci.sdk</groupId>
                 <artifactId>oci-java-sdk-bom</artifactId>
-                <version>1.8.0</version>
+                <version>1.8.1</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.oracle.oci.sdk</groupId>

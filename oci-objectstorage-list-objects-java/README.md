@@ -113,9 +113,9 @@ Create the application and function
   In the current folder, you have the following files:
   - `pom.xml` specifies all the dependencies for your function
   - `func.yaml` that contains metadata about your function and declares properties
-  - `src/main/java/com/example/fn/ObjectStoreList.java` which contains the Java code
+  - `src/main/java/com/example/fn/ObjectStorageListObjects.java` which contains the Java code
 
-  The name of your function *list-objects* is specified in `func.yaml`.
+  The name of your function *oci-objectstorage-list-objects* is specified in `func.yaml`.
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -158,10 +158,10 @@ Use the *fn* CLI to invoke your function with your own bucket name and app name:
 
   ![user input icon](../images/userinput.png)
   ```
-  echo -n '<bucket_name>' | fn invoke <app_name> list-objects
+  echo -n '<bucket_name>' | fn invoke <app_name> oci-objectstorage-list-objects
   ```
   e.g.
   ```
-  echo -n 'mybucket' | fn invoke object-crud list-objects
+  echo -n 'mybucket' | fn invoke object-crud oci-objectstorage-list-objects
   ```
 Upon success, you should see either a list of objects on your terminal.

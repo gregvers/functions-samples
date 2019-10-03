@@ -67,11 +67,11 @@ Switch to the correct context
 
   Your policy should look something like this:
   ```
-  Allow dynamic-group <your dynamic group name> to read instance-family in compartment <your compartment name>
+  Allow dynamic-group <your dynamic group name> to inspect instances in compartment <your compartment name>
   ```
   e.g.
   ```
-  Allow dynamic-group demo-func-dyn-group to read instance-family in compartment demo-func-compartment
+  Allow dynamic-group demo-func-dyn-group to inspect instances in compartment demo-func-compartment
   ```
 
   For more information on how to create policies, go [here](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/policysyntax.htm).
@@ -99,7 +99,7 @@ Create the application and function
 In the current folder, you have the following files:
 - [pom.xml](./pom.xml) specifies all the dependencies for your function
 - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
-- [src/main/java/io/fnproject/example/ComputeInstancesList.java](./src/main/java/io/fnproject/example/ComputeInstancesList.java) which contains the Java code
+- [src/main/java/com/example/fn/ComputeInstancesList.java](./src/main/java/com/example/fn/ComputeInstancesList.java) which contains the Java code
 
 The name of your function *list-instances* is specified in [func.yaml](./func.yaml).
 

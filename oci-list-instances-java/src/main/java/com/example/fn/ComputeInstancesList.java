@@ -38,7 +38,7 @@
 ** SOFTWARE.
 */
 
-package io.fnproject.example;
+package com.example.fn;
 
 import com.oracle.bmc.auth.ResourcePrincipalAuthenticationDetailsProvider;
 import com.oracle.bmc.core.ComputeClient;

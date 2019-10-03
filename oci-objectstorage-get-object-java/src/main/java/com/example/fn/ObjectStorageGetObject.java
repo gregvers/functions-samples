@@ -1,5 +1,5 @@
 /*
-** ObjectStoreGetFunction version 1.0.
+** ObjectStorageGetObject version 1.0.
 **
 ** Copyright (c) 2019 Oracle, Inc.  All rights reserved.
 **
@@ -38,7 +38,7 @@
 ** SOFTWARE.
 */
 
-package io.fnproject.example;
+package com.example.fn;
 
 import com.oracle.bmc.auth.ResourcePrincipalAuthenticationDetailsProvider;
 import com.oracle.bmc.objectstorage.ObjectStorage;
