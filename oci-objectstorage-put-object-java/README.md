@@ -102,7 +102,7 @@ Create the application and function
   In the current folder, you have the following files:
   - [pom.xml](./pom.xml) specifies all the dependencies for your function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
-  - [src/main/java/io/fnproject/example/ObjectStorePutFunction.java](./src/main/java/io/fnproject/example/ObjectStorePutFunction.java) which contains the Java code
+  - [src/main/java/com/example/fn/ObjectStoragePutObject.java](./src/main/java/com/example/fn/ObjectStoragePutObject.java) which contains the Java code
 
   The name of your function *list-objects* is specified in [func.yaml](./func.yaml).
 
@@ -147,10 +147,10 @@ Use the *fn* CLI to invoke your function with your own bucket name and app name:
 
   ![user input icon](../images/userinput.png)
   ```
-  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>", "content": "<text_content>"}' | fn invoke <your app> putobject
+  echo -n '{"name": "<object_name>", "bucketName":"<bucket_name>", "content": "<text_content>"}' | fn invoke <your app> object-storage-put-object
   ```
   e.g.
   ```
-  echo -n '{"name": "file1.txt", "bucketName":"test", "content": "This file was created in OCI object storage bucket using Oracle Functions"}' | fn invoke object-crud put-object
+  echo -n '{"name": "file1.txt", "bucketName":"test", "content": "This file was created in OCI object storage bucket using Oracle Functions"}' | fn invoke object-crud object-storage-put-object
   ```
 Upon success, you should see a success message appear in your terminal.

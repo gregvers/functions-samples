@@ -1,5 +1,5 @@
 schema_version: 20180708
-name: list-objects
+name: oci-object-storage-list-objects
 version: 0.0.1
 runtime: python
 entrypoint: /python/bin/fdk /function/func.py handler

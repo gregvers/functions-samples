@@ -1,8 +1,8 @@
 schema_version: 20180708
-name: put-object
-version: 0.0.7
+name: oci-object-storage-put-object
+version: 0.0.1
 runtime: java
 build_image: fnproject/fn-java-fdk-build:jdk11-1.0.98
 run_image: fnproject/fn-java-fdk:jre11-1.0.98
-cmd: io.fnproject.example.ObjectStorePutFunction::handle
+cmd: io.fnproject.example.ObjectStoragePutObject::handle
 timeout: 120

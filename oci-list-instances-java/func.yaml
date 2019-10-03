@@ -1,8 +1,8 @@
 schema_version: 20180708
-name: list-instances
-version: 0.0.4
+name: oci-list-instances
+version: 0.0.1
 runtime: java
 build_image: fnproject/fn-java-fdk-build:jdk11-1.0.98
 run_image: fnproject/fn-java-fdk:jre11-1.0.98
-cmd: io.fnproject.example.ComputeInstancesListFunction::handle
+cmd: io.fnproject.example.ComputeInstancesList::handle
 timeout: 120

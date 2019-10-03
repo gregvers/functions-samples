@@ -114,7 +114,6 @@ Create the application and function
   - `pom.xml` specifies all the dependencies for your function
   - `func.yaml` that contains metadata about your function and declares properties
   - `src/main/java/com/example/fn/ObjectStoreList.java` which contains the Java code
-  - `src/test/java/com/example/fn/ObjectStoreListTest.java` which contains the Unit tests
 
   The name of your function *list-objects* is specified in `func.yaml`.
 
