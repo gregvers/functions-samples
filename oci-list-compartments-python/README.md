@@ -101,7 +101,7 @@ Create the application and function
   - [func.yaml](./func.yaml) which contains metadata about your function and declares properties
   - [func.py](./func.py) which is your actual Python function
 
-  The name of your function *get-object* is specified in [func.yaml](./func.yaml).
+  The name of your function *oci-list-compartments* is specified in [func.yaml](./func.yaml).
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -122,6 +122,6 @@ Test
   ```
   e.g.
   ```
-  fn invoke myapp list-compartments
+  fn invoke myapp oci-list-compartments
   ```
 Upon success, you should see all of the compartments in your tenancy appear in your terminal.

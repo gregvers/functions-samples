@@ -101,7 +101,7 @@ Create the application and function
   - [func.yaml](./func.yaml) which contains metadata about your function and declares properties
   - [func.py](./func.py) which is your actual Python function
 
-  The name of your function *get-object* is specified in [func.yaml](./func.yaml).
+  The name of your function *oci-list-instances* is specified in [func.yaml](./func.yaml).
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -122,6 +122,6 @@ Test
   ```
   e.g.
   ```
-  fn invoke myapp list-instances
+  fn invoke myapp oci-list-instances
   ```
 Upon success, you should see the list of instances in your compartment on your terminal.

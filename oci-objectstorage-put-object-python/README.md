@@ -105,7 +105,7 @@ Create the application and function
   - [func.yaml](./func.yaml) that contains metadata about your function and declares properties
   - [func.py](./func.py) which is your actual Python function
 
-  The name of your function *put-object* is specified in [func.yaml](./func.yaml).
+  The name of your function *oci-objectstorage-put-object* is specified in [func.yaml](./func.yaml).
 
 ### Deploy the function
   ![user input icon](../images/userinput.png)
@@ -150,6 +150,6 @@ Test
   ```
   e.g.
   ```
-  echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>", "content": "<content>"}' | fn invoke object-crud put-object
+  echo -n '{"fileName": "<file-name>", "bucketName": "<bucket-name>", "content": "<content>"}' | fn invoke object-crud oci-objectstorage-put-object
   ```
 Upon success, you should see a success message appear in your terminal.
